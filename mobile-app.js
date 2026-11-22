@@ -594,9 +594,17 @@ class QuietCampusMobileApp {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function bootQuietCampusMobile() {
   if (window.self !== window.top) {
     document.body.classList.add('is-embedded-iframe');
   }
-  window.quietCampusMobile = new QuietCampusMobileApp();
-});
+  if (!window.quietCampusMobile) {
+    window.quietCampusMobile = new QuietCampusMobileApp();
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootQuietCampusMobile);
+} else {
+  bootQuietCampusMobile();
+}

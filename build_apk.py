@@ -1,6 +1,7 @@
 import os
 import subprocess
 import shutil
+import re
 
 BUILD_TOOLS = r"C:\Users\thaku\AppData\Local\Android\Sdk\build-tools\35.0.0"
 PLATFORM_JAR = r"C:\Users\thaku\AppData\Local\Android\Sdk\platforms\android-36\android.jar"
@@ -59,7 +60,7 @@ def create_bundle(source_dir, output_path):
     print(f"Created standalone JS bundle at {output_path} ({len(bundle)} bytes)")
 
 def prepare_apk_html(source_dir, dest_path):
-    """Prepare app.html for Android APK: use bundled script, remove SW, add native-app class."""
+    """Prepare app.html for Android APK: use bundled script, remove SW cleanly, add native-app class."""
     with open(os.path.join(source_dir, "app.html"), "r", encoding="utf-8") as f:
         html = f.read()
 
@@ -69,12 +70,8 @@ def prepare_apk_html(source_dir, dest_path):
     # Ensure body has is-native-app class
     html = html.replace('<body class="mobile-app-body">', '<body class="mobile-app-body is-native-app">')
 
-    # Remove service worker registration as it's not supported on file://
-    sw_marker_start = "<!-- Service Worker Registration -->"
-    if sw_marker_start in html:
-        parts = html.split(sw_marker_start)
-        post_sw = parts[1].split("</script>")[1]
-        html = parts[0] + post_sw
+    # Remove service worker registration cleanly using regex (prevent truncating closing script and body tags)
+    html = re.sub(r'<!-- Service Worker Registration -->[\s\S]*?</script>', '', html)
 
     with open(dest_path, "w", encoding="utf-8") as f:
         f.write(html)
@@ -107,14 +104,14 @@ def main():
     <string name="app_name">QuietCampus</string>
 </resources>''')
 
-    # 3. Write AndroidManifest.xml with targetSdkVersion=34, minSdk=24, screen density support, version 3 (2.0.0)
+    # 3. Write AndroidManifest.xml with targetSdkVersion=34, minSdk=24, screen density support, version 4 (2.0.1)
     manifest_path = os.path.join(BUILD_DIR, "AndroidManifest.xml")
     with open(manifest_path, "w", encoding="utf-8") as f:
         f.write('''<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.bennett.quietcampus"
-    android:versionCode="3"
-    android:versionName="2.0.0">
+    android:versionCode="4"
+    android:versionName="2.0.1">
 
     <uses-sdk
         android:minSdkVersion="24"
@@ -170,13 +167,17 @@ import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 import android.webkit.WebChromeClient;
 import android.webkit.PermissionRequest;
+import android.webkit.ConsoleMessage;
 import android.content.pm.PackageManager;
 import android.Manifest;
 import android.view.WindowManager;
+import android.util.Log;
 
 public class MainActivity extends Activity {
+    private static final String TAG = "QuietCampus";
     private static final int PERMISSION_REQ = 101;
     private WebView webView;
+    private PermissionRequest pendingPermissionRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,13 +192,14 @@ public class MainActivity extends Activity {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
         settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setAllowFileAccess(true);
         settings.setAllowContentAccess(true);
         settings.setAllowFileAccessFromFileURLs(true);
         settings.setAllowUniversalAccessFromFileURLs(true);
-        settings.setDatabaseEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
 
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient() {
@@ -206,9 +208,20 @@ public class MainActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        request.grant(request.getResources());
+                        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+                            request.grant(request.getResources());
+                        } else {
+                            pendingPermissionRequest = request;
+                            requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSION_REQ);
+                        }
                     }
                 });
+            }
+
+            @Override
+            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+                Log.d(TAG, consoleMessage.message() + " -- Line " + consoleMessage.lineNumber());
+                return true;
             }
         });
 
@@ -217,6 +230,34 @@ public class MainActivity extends Activity {
         }
 
         webView.loadUrl("file:///android_asset/app.html");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQ) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (pendingPermissionRequest != null) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pendingPermissionRequest.grant(pendingPermissionRequest.getResources());
+                            pendingPermissionRequest = null;
+                        }
+                    });
+                }
+            } else {
+                if (pendingPermissionRequest != null) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pendingPermissionRequest.deny();
+                            pendingPermissionRequest = null;
+                        }
+                    });
+                }
+            }
+        }
     }
 
     @Override
@@ -341,6 +382,7 @@ public class MainActivity extends Activity {
         print("Generated permanent release keystore!")
 
     final_apk = os.path.join(SOURCE_DIR, "QuietCampus.apk")
+    final_apk_v2 = os.path.join(SOURCE_DIR, "QuietCampus-v2.apk")
     final_apk_bennett = os.path.join(SOURCE_DIR, "QuietCampus-BennettUniversity.apk")
 
     cmd_sign = [
@@ -358,8 +400,9 @@ public class MainActivity extends Activity {
         f'"{aligned_apk}"'
     ]
     run(" ".join(cmd_sign))
+    shutil.copy2(final_apk, final_apk_v2)
     shutil.copy2(final_apk, final_apk_bennett)
-    print(f"APK successfully generated and signed with release key at:\n{final_apk}\n{final_apk_bennett}")
+    print(f"APK successfully generated and signed with release key at:\n{final_apk}\n{final_apk_v2}\n{final_apk_bennett}")
 
 if __name__ == "__main__":
     main()

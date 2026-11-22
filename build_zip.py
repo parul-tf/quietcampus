@@ -18,6 +18,7 @@ files_to_zip = [
     "vercel.json",
     "three.min.js",
     "QuietCampus.apk",
+    "QuietCampus-v2.apk",
     "app-logo.png",
     "favicon.png",
     "README.md"
