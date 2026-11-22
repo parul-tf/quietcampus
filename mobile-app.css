@@ -1550,3 +1550,22 @@ body.is-embedded-iframe .phone-speaker-notch {
     padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
   }
 }
+
+@media (max-width: 380px) {
+  .meter-ring-container {
+    width: 160px;
+    height: 160px;
+  }
+  .meter-reading-number {
+    font-size: 3.1rem;
+  }
+  .mobile-zone-picker {
+    padding: 10px 12px;
+  }
+  .meter-stats-triad {
+    padding: 8px 6px;
+  }
+  .stat-val {
+    font-size: 1.05rem;
+  }
+}

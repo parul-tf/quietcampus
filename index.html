@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
   <title>QuietCampus | Bennett University TREP Project</title>
   
   <meta name="description" content="QuietCampus: Student-led Acoustic Fieldwork & Behavioral Interventions in Academic Corridors at Bennett University. TREP End Semester Innovation Project aligned with UN SDGs 3, 4 & 11.">
@@ -88,9 +91,65 @@
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
           <span>Download .APK</span>
         </a>
+        <!-- Mobile Navigation Menu Toggle Button -->
+        <button class="btn-mobile-menu-toggle" id="btnMobileMenuToggle" aria-label="Open Mobile Navigation Menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- MOBILE NAVIGATION DRAWER & BACKDROP -->
+  <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+  <aside class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+    <div class="mobile-drawer-header">
+      <div class="drawer-brand">
+        <img src="app-logo.png" alt="QuietCampus Logo" class="brand-logo-img">
+        <div>
+          <strong style="font-size: 0.95rem; color: #fff; display: block;">QuietCampus</strong>
+          <span style="font-size: 0.72rem; color: #00f2fe; font-weight: 600;">Bennett University TREP</span>
+        </div>
+      </div>
+      <button class="btn-drawer-close" id="btnMobileDrawerClose" aria-label="Close Navigation Menu">&times;</button>
+    </div>
+
+    <nav class="mobile-drawer-links">
+      <a href="#hero-section" class="drawer-link active">
+        <span class="drawer-link-icon">🏠</span>
+        <span>Overview</span>
+      </a>
+      <a href="#app-showcase-section" class="drawer-link">
+        <span class="drawer-link-icon">📱</span>
+        <span>App Showcase & Specs</span>
+      </a>
+      <a href="#campus-section" class="drawer-link">
+        <span class="drawer-link-icon">📍</span>
+        <span>Campus Fieldwork Zones</span>
+      </a>
+      <a href="#analysis-section" class="drawer-link">
+        <span class="drawer-link-icon">🧮</span>
+        <span>Sound Physics & Calc</span>
+      </a>
+      <a href="#dossier-section" class="drawer-link">
+        <span class="drawer-link-icon">📋</span>
+        <span>TREP Report Dossier (1–14)</span>
+      </a>
+    </nav>
+
+    <div class="mobile-drawer-footer">
+      <a href="app.html" class="drawer-btn-app">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span>Launch Mobile App</span>
+      </a>
+      <a href="QuietCampus.apk" download="QuietCampus.apk" class="drawer-btn-apk">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+        <span>Download Android .APK</span>
+      </a>
+      <p class="drawer-copy">Bennett University • TREP End Semester • SDGs 3, 4 & 11</p>
+    </div>
+  </aside>
 
   <!-- MAIN WEBSITE CONTENT -->
   <main class="website-main">

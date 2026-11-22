@@ -335,6 +335,67 @@ class QuietCampusWebsite {
         });
       }
     }, { passive: true });
+
+    // Mobile Drawer Setup
+    const menuToggle = document.getElementById('btnMobileMenuToggle');
+    const drawer = document.getElementById('mobileNavDrawer');
+    const backdrop = document.getElementById('mobileNavBackdrop');
+    const drawerClose = document.getElementById('btnMobileDrawerClose');
+    const drawerLinks = document.querySelectorAll('.mobile-drawer-links .drawer-link');
+
+    const openDrawer = () => {
+      if (drawer && backdrop && menuToggle) {
+        drawer.classList.add('is-open');
+        backdrop.classList.add('is-open');
+        menuToggle.classList.add('is-open');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        drawer.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+    };
+
+    const closeDrawer = () => {
+      if (drawer && backdrop && menuToggle) {
+        drawer.classList.remove('is-open');
+        backdrop.classList.remove('is-open');
+        menuToggle.classList.remove('is-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    };
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', () => {
+        if (drawer && drawer.classList.contains('is-open')) {
+          closeDrawer();
+        } else {
+          openDrawer();
+        }
+      });
+    }
+
+    if (drawerClose) {
+      drawerClose.addEventListener('click', closeDrawer);
+    }
+
+    if (backdrop) {
+      backdrop.addEventListener('click', closeDrawer);
+    }
+
+    drawerLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        closeDrawer();
+        drawerLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer && drawer.classList.contains('is-open')) {
+        closeDrawer();
+      }
+    });
   }
 
   // --- 3. DYNAMIC QR CODE POINTING DIRECTLY TO APK ---
@@ -973,33 +1034,40 @@ class QuietCampusWebsite {
 
   checkMobileVisitor() {
     const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
-    if (isMobile) {
-      const banner = document.createElement('div');
-      banner.style.cssText = `
-        position: fixed;
-        bottom: 16px;
-        left: 16px;
-        right: 16px;
-        background: #0f172a;
-        color: #ffffff;
-        padding: 12px 18px;
-        border-radius: 999px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        z-index: 9999;
-        font-size: 0.82rem;
-        border: 1px solid #14b8a6;
-      `;
-      banner.innerHTML = `
-        <span style="font-weight: 700; display: flex; align-items: center; gap: 6px;">📱 QuietCampus App:</span>
-        <div style="display: flex; gap: 8px; align-items: center;">
-          <a href="app.html" style="background: linear-gradient(135deg, #05ffa1 0%, #00f2fe 100%); color: #050811; text-decoration: none; padding: 7px 14px; border-radius: 999px; font-weight: 800; font-size: 0.76rem;">Launch App</a>
-          <a href="QuietCampus.apk" download="QuietCampus.apk" style="background: rgba(255,255,255,0.12); color: #fff; text-decoration: none; padding: 7px 12px; border-radius: 999px; font-weight: 600; font-size: 0.72rem; border: 1px solid rgba(255,255,255,0.2);">.APK</a>
+    if (isMobile && !sessionStorage.getItem('qc_dock_dismissed')) {
+      const dock = document.createElement('div');
+      dock.className = 'mobile-floating-dock';
+      dock.id = 'mobileFloatingDock';
+      dock.innerHTML = `
+        <div class="mobile-dock-info">
+          <img src="app-logo.png" alt="QuietCampus" class="mobile-dock-logo">
+          <div>
+            <div class="mobile-dock-title">QuietCampus</div>
+            <div class="mobile-dock-sub">Decibel Meter App</div>
+          </div>
+        </div>
+        <div class="mobile-dock-actions">
+          <a href="app.html" class="btn-dock-launch" title="Launch Web App">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>Launch</span>
+          </a>
+          <a href="QuietCampus.apk" download="QuietCampus.apk" class="btn-dock-apk" title="Download Android Package">.APK</a>
+          <button class="btn-dock-close" id="btnCloseMobileDock" aria-label="Dismiss banner">&times;</button>
         </div>
       `;
-      document.body.appendChild(banner);
+      document.body.appendChild(dock);
+
+      const closeBtn = document.getElementById('btnCloseMobileDock');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          dock.style.animation = 'none';
+          dock.style.transition = 'all 0.25s ease';
+          dock.style.transform = 'translateY(80px)';
+          dock.style.opacity = '0';
+          setTimeout(() => dock.remove(), 260);
+          sessionStorage.setItem('qc_dock_dismissed', '1');
+        });
+      }
     }
   }
 }
