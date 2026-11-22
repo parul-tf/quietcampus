@@ -1498,7 +1498,7 @@ canvas#visualizerCanvas {
   margin: 0;
 }
 
-/* 12. REAL MOBILE DEVICE RESPONSIVE & EMBEDDED IFRAME */
+/* 12. REAL MOBILE DEVICE RESPONSIVE, EMBEDDED IFRAME & NATIVE APK */
 body.is-embedded-iframe {
   background: transparent !important;
 }
@@ -1518,6 +1518,32 @@ body.is-embedded-iframe .device-phone-chassis {
   box-shadow: none !important;
 }
 body.is-embedded-iframe .phone-speaker-notch {
+  display: none !important;
+}
+
+/* Native Android APK Viewport */
+body.is-native-app {
+  background: #050811 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+body.is-native-app .device-frame-outer {
+  padding: 0 !important;
+  height: 100vh !important;
+  width: 100vw !important;
+}
+body.is-native-app .device-phone-chassis {
+  max-width: 100vw !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+body.is-native-app .phone-speaker-notch {
+  display: none !important;
+}
+body.is-native-app .mobile-back-link {
   display: none !important;
 }
 

@@ -404,7 +404,7 @@ class QuietCampusWebsite {
     const qrText = document.getElementById('qrTargetUrlText');
     if (!qrImg) return;
 
-    const apkUrl = `${window.location.origin}/QuietCampus.apk`;
+    const apkUrl = `${window.location.origin}/QuietCampus.apk?v=2.0.0`;
     if (qrText) qrText.textContent = apkUrl;
 
     const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=2&data=${encodeURIComponent(apkUrl)}`;
@@ -1052,7 +1052,7 @@ class QuietCampusWebsite {
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             <span>Launch</span>
           </a>
-          <a href="QuietCampus.apk" download="QuietCampus.apk" class="btn-dock-apk" title="Download Android Package">.APK</a>
+          <a href="QuietCampus.apk?v=2.0.0" download="QuietCampus.apk" class="btn-dock-apk" title="Download Android Package">.APK</a>
           <button class="btn-dock-close" id="btnCloseMobileDock" aria-label="Dismiss banner">&times;</button>
         </div>
       `;

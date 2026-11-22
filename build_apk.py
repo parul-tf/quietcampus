@@ -8,6 +8,7 @@ JDK_BIN = r"C:\Program Files\Java\jdk-18.0.2.1\bin"
 SOURCE_DIR = r"C:\Users\thaku\.gemini\antigravity\scratch\quietcampus-sdg-app"
 BUILD_DIR = os.path.join(SOURCE_DIR, "android_build")
 RES_SOURCE = os.path.join(SOURCE_DIR, "android_res")
+KEYSTORE_PATH = os.path.join(SOURCE_DIR, "quietcampus-release.keystore")
 
 AAPT = os.path.join(BUILD_TOOLS, "aapt.exe")
 D8 = os.path.join(BUILD_TOOLS, "d8.bat")
@@ -24,6 +25,60 @@ def run(cmd, cwd=None):
         print("STDERR:", res.stderr)
         raise RuntimeError(f"Command failed with code {res.returncode}")
     return res.stdout
+
+def create_bundle(source_dir, output_path):
+    """Bundle data.js, audio-engine.js, and mobile-app.js into a single vanilla JS script without ES6 module syntax."""
+    with open(os.path.join(source_dir, "data.js"), "r", encoding="utf-8") as f:
+        data_code = f.read()
+    # Strip ES6 exports from data.js
+    data_code = data_code.replace("export const TREP_PROJECT", "const TREP_PROJECT")
+    data_code = data_code.replace("export default TREP_PROJECT;", "")
+    data_code += "\nwindow.TREP_PROJECT = TREP_PROJECT;\n"
+
+    with open(os.path.join(source_dir, "audio-engine.js"), "r", encoding="utf-8") as f:
+        audio_code = f.read()
+    # Strip ES6 export from audio-engine.js
+    audio_code = audio_code.replace("export class AcousticEngine", "class AcousticEngine")
+    audio_code += "\nwindow.AcousticEngine = AcousticEngine;\n"
+
+    with open(os.path.join(source_dir, "mobile-app.js"), "r", encoding="utf-8") as f:
+        mobile_code = f.read()
+    # Strip ES6 imports from mobile-app.js
+    mobile_code = mobile_code.replace("import { TREP_PROJECT } from './data.js';", "// bundled: TREP_PROJECT")
+    mobile_code = mobile_code.replace("import { AcousticEngine } from './audio-engine.js';", "// bundled: AcousticEngine")
+
+    bundle = "/* QuietCampus Standalone Native APK Bundle (v2.0.0) */\n"
+    bundle += "(function() {\n"
+    bundle += data_code + "\n"
+    bundle += audio_code + "\n"
+    bundle += mobile_code + "\n"
+    bundle += "})();\n"
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(bundle)
+    print(f"Created standalone JS bundle at {output_path} ({len(bundle)} bytes)")
+
+def prepare_apk_html(source_dir, dest_path):
+    """Prepare app.html for Android APK: use bundled script, remove SW, add native-app class."""
+    with open(os.path.join(source_dir, "app.html"), "r", encoding="utf-8") as f:
+        html = f.read()
+
+    # Replace ES6 module script with vanilla bundle
+    html = html.replace('<script type="module" src="mobile-app.js"></script>', '<script src="app-bundle.js"></script>')
+
+    # Ensure body has is-native-app class
+    html = html.replace('<body class="mobile-app-body">', '<body class="mobile-app-body is-native-app">')
+
+    # Remove service worker registration as it's not supported on file://
+    sw_marker_start = "<!-- Service Worker Registration -->"
+    if sw_marker_start in html:
+        parts = html.split(sw_marker_start)
+        post_sw = parts[1].split("</script>")[1]
+        html = parts[0] + post_sw
+
+    with open(dest_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"Prepared APK app.html at {dest_path}")
 
 def main():
     if os.path.exists(BUILD_DIR):
@@ -52,14 +107,14 @@ def main():
     <string name="app_name">QuietCampus</string>
 </resources>''')
 
-    # 3. Write AndroidManifest.xml with targetSdkVersion=34, minSdk=24, screen density support
+    # 3. Write AndroidManifest.xml with targetSdkVersion=34, minSdk=24, screen density support, version 3 (2.0.0)
     manifest_path = os.path.join(BUILD_DIR, "AndroidManifest.xml")
     with open(manifest_path, "w", encoding="utf-8") as f:
         f.write('''<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.bennett.quietcampus"
-    android:versionCode="2"
-    android:versionName="1.1.0">
+    android:versionCode="3"
+    android:versionName="2.0.0">
 
     <uses-sdk
         android:minSdkVersion="24"
@@ -117,6 +172,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.PermissionRequest;
 import android.content.pm.PackageManager;
 import android.Manifest;
+import android.view.WindowManager;
 
 public class MainActivity extends Activity {
     private static final int PERMISSION_REQ = 101;
@@ -125,6 +181,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Keep screen on while decibel monitoring
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         webView = new WebView(this);
         setContentView(webView);
@@ -138,6 +197,7 @@ public class MainActivity extends Activity {
         settings.setAllowFileAccessFromFileURLs(true);
         settings.setAllowUniversalAccessFromFileURLs(true);
         settings.setDatabaseEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient() {
@@ -170,28 +230,31 @@ public class MainActivity extends Activity {
 }
 ''')
 
-    # 5. Copy Web Assets into assets/
-    asset_files = [
-        "app.html",
-        "mobile-app.js",
+    # 5. Create Standalone Bundle and Prepare Assets
+    assets_dir = os.path.join(BUILD_DIR, "assets")
+    create_bundle(SOURCE_DIR, os.path.join(assets_dir, "app-bundle.js"))
+    prepare_apk_html(SOURCE_DIR, os.path.join(assets_dir, "app.html"))
+
+    # Copy static assets (including index.html, website.css, etc. for complete offline support)
+    extra_asset_files = [
+        "index.html",
+        "website.css",
+        "website.js",
         "mobile-app.css",
-        "audio-engine.js",
-        "data.js",
         "styles.css",
         "three.min.js",
         "manifest.json",
         "app-logo.png",
         "favicon.png"
     ]
-    for af in asset_files:
+    for af in extra_asset_files:
         src = os.path.join(SOURCE_DIR, af)
         if os.path.exists(src):
-            shutil.copy2(src, os.path.join(BUILD_DIR, "assets", af))
+            shutil.copy2(src, os.path.join(assets_dir, af))
 
     # 6. Generate R.java and initial package with aapt
     res_dir = os.path.join(BUILD_DIR, "res")
     gen_dir = os.path.join(BUILD_DIR, "gen")
-    assets_dir = os.path.join(BUILD_DIR, "assets")
     unsigned_apk = os.path.join(BUILD_DIR, "unsigned.apk")
 
     cmd_aapt = [
@@ -260,15 +323,14 @@ public class MainActivity extends Activity {
     run(" ".join(cmd_align))
     print("Zipalign successful!")
 
-    # 11. Generate keystore if not exists and sign with apksigner
-    keystore = os.path.join(BUILD_DIR, "debug.keystore")
-    if not os.path.exists(keystore):
+    # 11. Sign using the permanent release keystore
+    if not os.path.exists(KEYSTORE_PATH):
         cmd_key = [
             f'"{KEYTOOL}"',
             '-genkeypair',
             '-validity', '10000',
             '-dname', '"CN=QuietCampus, O=Bennett University, C=IN"',
-            '-keystore', f'"{keystore}"',
+            '-keystore', f'"{KEYSTORE_PATH}"',
             '-storepass', 'android',
             '-keypass', 'android',
             '-alias', 'quietcampus',
@@ -276,7 +338,7 @@ public class MainActivity extends Activity {
             '-keysize', '2048'
         ]
         run(" ".join(cmd_key))
-        print("Keystore generated!")
+        print("Generated permanent release keystore!")
 
     final_apk = os.path.join(SOURCE_DIR, "QuietCampus.apk")
     final_apk_bennett = os.path.join(SOURCE_DIR, "QuietCampus-BennettUniversity.apk")
@@ -288,7 +350,7 @@ public class MainActivity extends Activity {
         '--v1-signing-enabled', 'true',
         '--v2-signing-enabled', 'true',
         '--v3-signing-enabled', 'true',
-        '--ks', f'"{keystore}"',
+        '--ks', f'"{KEYSTORE_PATH}"',
         '--ks-pass', 'pass:android',
         '--key-pass', 'pass:android',
         '--ks-key-alias', 'quietcampus',
@@ -297,7 +359,7 @@ public class MainActivity extends Activity {
     ]
     run(" ".join(cmd_sign))
     shutil.copy2(final_apk, final_apk_bennett)
-    print(f"APK successfully generated and signed at:\n{final_apk}\n{final_apk_bennett}")
+    print(f"APK successfully generated and signed with release key at:\n{final_apk}\n{final_apk_bennett}")
 
 if __name__ == "__main__":
     main()
