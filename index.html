@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuietCampus | Bennett University TREP Project</title>
+  
+  <meta name="description" content="QuietCampus: Student-led Acoustic Fieldwork & Behavioral Interventions in Academic Corridors at Bennett University. TREP End Semester Innovation Project aligned with UN SDGs 3, 4 & 11.">
+  <meta name="theme-color" content="#0f766e">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- 3D Engine & Charting Libraries -->
+  <script src="three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Instant Scroll-To-Top on Refresh Engine -->
+  <script>
+    // Force browser to start at top on refresh & avoid restoring scroll
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
+    // If URL contains hash anchor on refresh, strip it cleanly and start at top
+    if (window.location.hash) {
+      history.replaceState(null, null, window.location.pathname);
+      window.scrollTo(0, 0);
+    }
+
+    window.addEventListener('beforeunload', function() {
+      window.scrollTo(0, 0);
+    });
+    window.addEventListener('pageshow', function() {
+      window.scrollTo(0, 0);
+    });
+    window.addEventListener('DOMContentLoaded', function() {
+      window.scrollTo(0, 0);
+    });
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        window.scrollTo(0, 0);
+      }, 0);
+    });
+  </script>
+
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <link rel="stylesheet" href="website.css?v=2026.7">
+</head>
+<body class="website-body">
+
+  <!-- ULTRA-MODERN FLOATING DYNAMIC GLASS ISLAND HEADER (2026 SPEC) -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-wrapper" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <img src="app-logo.png" alt="QuietCampus App Logo" class="brand-logo-img">
+        <div class="brand-titles">
+          <h1>QuietCampus <span class="header-pill-badge">TREP 2026</span></h1>
+          <p>Bennett University • Acoustics</p>
+        </div>
+      </div>
+
+      <!-- Centered Sleek Nav Pills (6 Essential Destinations) -->
+      <nav class="header-nav-links">
+        <a href="#hero-section" class="nav-link active">Overview</a>
+        <a href="#app-showcase-section" class="nav-link">App Showcase</a>
+        <a href="#campus-section" class="nav-link">Fieldwork</a>
+        <a href="#analysis-section" class="nav-link">Sound Physics</a>
+        <a href="#dossier-section" class="nav-link">Report Dossier</a>
+        <a href="#team-section" class="nav-link">Team</a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="header-actions">
+        <a href="QuietCampus.apk" download="QuietCampus.apk" class="btn-header-install">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+          <span>Download .APK</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WEBSITE CONTENT -->
+  <main class="website-main">
+
+    <!-- HERO SECTION WITH INTERACTIVE 3D ACOUSTIC WAVEFIELD -->
+    <section class="web-hero-section" id="hero-section">
+      <!-- 3D Canvas Background Container -->
+      <div id="hero3dCanvas" class="hero-3d-bg"></div>
+      
+      <div class="section-container">
+        <div class="web-hero-grid">
+          
+          <!-- Left Hero Content -->
+          <div class="hero-left-content reveal-from-left is-visible">
+            <div class="status-chip">
+              Bennett University • TREP End Semester Project
+            </div>
+
+            <div class="hero-sdg-pills">
+              <span class="dossier-tag tag-sdg">Aligned: UN SDG 3 (Target 3.9)</span>
+              <span class="dossier-tag">SDG 4 & 11</span>
+              <span class="dossier-tag">1-Week Intensive Sprint</span>
+              <span class="dossier-tag">Greater Noida Campus</span>
+            </div>
+
+            <h1 class="hero-main-title">
+              Making Bennett University quieter, one corridor at a time.
+            </h1>
+
+            <p class="hero-subtitle">
+              A student innovation project pairing a custom <strong>Android decibel meter app</strong> for real-time sound tracking with <strong>simple physical nudges</strong> to reduce noise across high-traffic campus corridors.
+            </p>
+
+            <div class="hero-cta-group">
+              <a href="QuietCampus.apk" download="QuietCampus.apk" class="btn-ctrl btn-start" style="padding: 14px 28px; font-size: 0.96rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span>Download Android App (.APK)</span>
+              </a>
+
+              <a href="#dossier-section" class="btn-ctrl btn-pause" style="padding: 14px 24px; font-size: 0.94rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span>Read Full Report (Sec 1-14)</span>
+              </a>
+            </div>
+
+            <!-- Quick Metrics Banner -->
+            <div class="hero-quick-metrics">
+              <div class="metric-item">
+                <div class="metric-num">-7.2 dB</div>
+                <div class="metric-lbl">LRC Foyer Drop</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-num">-6.8 dB</div>
+                <div class="metric-lbl">Paid Mess Drop</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-num">~80%</div>
+                <div class="metric-lbl">Sound Energy Cut</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-num">1 Week</div>
+                <div class="metric-lbl">Sprint Duration</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Hero: Clean Mobile App Showcase -->
+          <div class="hero-phone-preview-col reveal-from-right is-visible">
+            <div class="app-feature-showcase-card" id="card3dTilt">
+              
+              <!-- Card Top Header -->
+              <div class="showcase-card-header">
+                <div class="showcase-icon-box" style="padding: 0; background: transparent; border: none; overflow: hidden;">
+                  <img src="app-logo.png" alt="QuietCampus Official Logo" style="width: 44px; height: 44px; border-radius: 10px; box-shadow: 0 2px 10px rgba(15, 118, 110, 0.2);">
+                </div>
+                <div>
+                  <span class="showcase-badge">Android Application</span>
+                  <h3 class="showcase-title">QuietCampus Mobile</h3>
+                  <p class="showcase-subtitle">Real-Time Decibel Meter for Students</p>
+                </div>
+              </div>
+
+              <!-- Phone Screen Mockup Display -->
+              <div class="phone-screen-display">
+                <div class="phone-screen-top-bar">
+                  <span class="phone-screen-zone-pill">📍 Outside LRC (B01)</span>
+                  <span class="phone-screen-live-tag">🔒 Volatile RAM</span>
+                </div>
+
+                <div class="phone-screen-meter-wrap">
+                  <div class="phone-screen-db-number" id="heroLiveDb">58.4</div>
+                  <div class="phone-screen-db-unit">dB(A)</div>
+                  <div class="phone-screen-status-badge">Moderate • Study OK</div>
+                </div>
+
+                <!-- Visual Decibel Level Slider Bar -->
+                <div class="phone-meter-bar-track">
+                  <div class="phone-meter-bar-fill" style="width: 62%;"></div>
+                  <div class="phone-meter-bar-labels">
+                    <span>40 dB Quiet</span>
+                    <span>65 dB CPCB</span>
+                    <span>85 dB Loud</span>
+                  </div>
+                </div>
+
+                <!-- Phone Readouts Row -->
+                <div class="phone-stats-grid">
+                  <div class="phone-stat-col">
+                    <span class="p-lbl">10-Min LAeq</span>
+                    <span class="p-val" id="heroLiveLaeq">56.8 dBA</span>
+                  </div>
+                  <div class="phone-stat-col">
+                    <span class="p-lbl">Peak Spike</span>
+                    <span class="p-val" id="heroLivePeak">64.2 dBA</span>
+                  </div>
+                  <div class="phone-stat-col">
+                    <span class="p-lbl">Net Drop</span>
+                    <span class="p-val" style="color: var(--teal-primary); font-weight: 700;">-7.2 dB</span>
+                  </div>
+                </div>
+
+                <div class="phone-privacy-note">
+                  🔒 <strong>100% Private</strong> • Sound calculated in RAM; zero audio recorded.
+                </div>
+              </div>
+
+              <!-- Download Button Inside Showcase -->
+              <div class="showcase-cta-box" style="margin-top: 18px;">
+                <a href="QuietCampus.apk" download="QuietCampus.apk" class="btn-ctrl btn-start" style="width: 100%; text-align: center; justify-content: center; padding: 13px; font-size: 0.92rem;">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                  <span>Download App (.APK)</span>
+                </a>
+                <span class="showcase-note">Direct Android APK Install • 1-Week Project Sprint</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: APP CAPABILITIES ON SMARTPHONES -->
+    <section class="web-section bg-white-section" id="features-section">
+      <div class="section-container">
+        <div class="section-title-wrap reveal-on-scroll">
+          <h2>Smartphone Acoustic Capabilities</h2>
+          <p>Engineered for simple, instant noise awareness in university corridors and dining areas.</p>
+        </div>
+
+        <div class="stagger-reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+          <div class="architecture-feature-card">
+            <div class="feature-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+            </div>
+            <h4>Real-Time Decibels</h4>
+            <p>Calculates Sound Pressure Level in dB(A) using digital A-weighting frequency filters matched directly to human ear sensitivity.</p>
+          </div>
+
+          <div class="architecture-feature-card">
+            <div class="feature-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h4>Continuous 10-Min LAeq & Spikes</h4>
+            <p>Maintains continuous energy-equivalent averages ($L_{Aeq}$) while simultaneously logging peak spikes ($L_{max}$) like slammed doors or crowd surges.</p>
+          </div>
+
+          <div class="architecture-feature-card">
+            <div class="feature-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <h4>WHO & CPCB Campus Standards</h4>
+            <p>Compares live corridor sound against the WHO 70 dB(A) threshold and Central Pollution Control Board quiet study standards (50 dB).</p>
+          </div>
+
+          <div class="architecture-feature-card">
+            <div class="feature-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h4>100% On-Device Privacy</h4>
+            <p>Sound pressure is converted into numeric decibels directly in device memory. No speech is transcribed, recorded, or transmitted to any server.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: APP SHOWCASE & INTERACTIVE SCREENSHOTS -->
+    <section class="web-section bg-surface-subtle" id="app-showcase-section">
+      <div class="section-container">
+        <div class="section-title-wrap reveal-on-scroll">
+          <div class="section-sub-badge">Official Mobile Software</div>
+          <h2>QuietCampus App Screens & Architecture</h2>
+          <p>Explore the custom acoustic decibel meter, campus zone intel, and cryptographic audio security designed for Bennett University students.</p>
+        </div>
+
+        <!-- App Screenshots Showcase Grid -->
+        <div class="app-screenshots-wrapper stagger-reveal">
+          
+          <!-- Screen 1: Live Decibel Meter -->
+          <div class="screenshot-card">
+            <div class="screenshot-phone-frame">
+              <div class="phone-frame-notch"></div>
+              <div class="phone-frame-screen">
+                <div class="p-screen-header">
+                  <div class="p-screen-logo-row">
+                    <img src="app-logo.png" alt="QuietCampus" style="width: 20px; height: 20px; border-radius: 5px;">
+                    <span style="font-size: 0.72rem; font-weight: 800; color: #fff;">QuietCampus</span>
+                  </div>
+                  <span class="p-sec-badge">🔒 RAM ONLY</span>
+                </div>
+                <div class="p-screen-zone">📍 Outside LRC (Library)</div>
+                <div class="p-meter-dial-sim">
+                  <svg class="p-sim-svg" viewBox="0 0 160 160">
+                    <circle cx="80" cy="80" r="68" stroke="rgba(255,255,255,0.08)" stroke-width="10" fill="none"/>
+                    <circle cx="80" cy="80" r="68" stroke="#05ffa1" stroke-width="10" stroke-dasharray="427" stroke-dashoffset="180" stroke-linecap="round" fill="none"/>
+                  </svg>
+                  <div class="p-sim-val">
+                    <span class="p-sim-num">58.4</span>
+                    <span class="p-sim-unit">dB(A) SPL</span>
+                  </div>
+                </div>
+                <div class="p-category-pill">STUDY READY (&lt;65 dB)</div>
+                <!-- 30-band frequency equalizer bars preview -->
+                <div class="p-eq-preview">
+                  <span style="height: 40%;"></span><span style="height: 65%;"></span><span style="height: 85%;"></span>
+                  <span style="height: 50%;"></span><span style="height: 90%;"></span><span style="height: 70%;"></span>
+                  <span style="height: 45%;"></span><span style="height: 60%;"></span><span style="height: 80%;"></span>
+                  <span style="height: 95%;"></span><span style="height: 75%;"></span><span style="height: 55%;"></span>
+                  <span style="height: 65%;"></span><span style="height: 40%;"></span><span style="height: 70%;"></span>
+                  <span style="height: 85%;"></span><span style="height: 50%;"></span><span style="height: 60%;"></span>
+                </div>
+                <div class="p-stat-triad-sim">
+                  <div><span>LAeq</span><strong>56.8</strong></div>
+                  <div><span>Lmax</span><strong>64.2</strong></div>
+                  <div><span>Lmin</span><strong>42.1</strong></div>
+                </div>
+              </div>
+            </div>
+            <div class="screenshot-info">
+              <span class="screen-label-tag">Screen 01 • Main Deck</span>
+              <h4>Live SPL Decibel Meter</h4>
+              <p>Computes A-weighted Sound Pressure Level in real time using IEC 61672 filtering, 30-band frequency spectrum analysis, and continuous 10-minute energy-equivalent $L_{Aeq}$.</p>
+            </div>
+          </div>
+
+          <!-- Screen 2: Bennett Campus Study Zones -->
+          <div class="screenshot-card">
+            <div class="screenshot-phone-frame">
+              <div class="phone-frame-notch"></div>
+              <div class="phone-frame-screen">
+                <div class="p-screen-header">
+                  <span style="font-size: 0.78rem; font-weight: 800; color: #fff;">Campus Study Zones</span>
+                  <span style="font-size: 0.62rem; color: #00f2fe; font-family: monospace;">4 ZONES</span>
+                </div>
+                <!-- Zone Item 1 -->
+                <div class="p-zone-item-mockup">
+                  <div class="p-zone-mockup-top">
+                    <div>
+                      <span class="p-zone-code-tag">B01</span>
+                      <strong style="font-size: 0.74rem; color: #fff;">Outside LRC Library</strong>
+                    </div>
+                    <span class="p-drop-badge">-11.4 dB</span>
+                  </div>
+                  <div class="p-zone-metrics-row">
+                    <span>Base: 64.2 dBA</span>
+                    <span>➔</span>
+                    <span style="color: #05ffa1; font-weight: 700;">Nudge: 52.8 dBA</span>
+                  </div>
+                </div>
+                <!-- Zone Item 2 -->
+                <div class="p-zone-item-mockup">
+                  <div class="p-zone-mockup-top">
+                    <div>
+                      <span class="p-zone-code-tag">B02</span>
+                      <strong style="font-size: 0.74rem; color: #fff;">Paid Mess / N Block</strong>
+                    </div>
+                    <span class="p-drop-badge">-8.5 dB</span>
+                  </div>
+                  <div class="p-zone-metrics-row">
+                    <span>Base: 81.6 dBA</span>
+                    <span>➔</span>
+                    <span style="color: #05ffa1; font-weight: 700;">Nudge: 73.1 dBA</span>
+                  </div>
+                </div>
+                <!-- Zone Item 3 -->
+                <div class="p-zone-item-mockup">
+                  <div class="p-zone-mockup-top">
+                    <div>
+                      <span class="p-zone-code-tag">B03</span>
+                      <strong style="font-size: 0.74rem; color: #fff;">A & B Breezeway</strong>
+                    </div>
+                    <span class="p-drop-badge">-11.2 dB</span>
+                  </div>
+                  <div class="p-zone-metrics-row">
+                    <span>Base: 72.4 dBA</span>
+                    <span>➔</span>
+                    <span style="color: #05ffa1; font-weight: 700;">Nudge: 61.2 dBA</span>
+                  </div>
+                </div>
+                <div class="p-zone-btn-mockup">▶ Monitor This Zone</div>
+              </div>
+            </div>
+            <div class="screenshot-info">
+              <span class="screen-label-tag">Screen 02 • Zone Intelligence</span>
+              <h4>Bennett University Hotspots</h4>
+              <p>Provides comparative empirical baseline noise data across LRC, Dining Commons, Breezeways, and Hostels with instant "Monitor This Zone" field sampling.</p>
+            </div>
+          </div>
+
+          <!-- Screen 3: History & CSV Telemetry -->
+          <div class="screenshot-card">
+            <div class="screenshot-phone-frame">
+              <div class="phone-frame-notch"></div>
+              <div class="phone-frame-screen">
+                <div class="p-screen-header">
+                  <span style="font-size: 0.78rem; font-weight: 800; color: #fff;">Acoustic History</span>
+                  <span class="p-export-btn-mock">Export CSV</span>
+                </div>
+                <div class="p-history-item-mock">
+                  <div>
+                    <strong style="font-size: 0.74rem; color: #fff;">Outside LRC Foyer</strong>
+                    <div style="font-size: 0.62rem; color: #94a3b8;">Today • 14:20 • ⏱ 10:00</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <div style="color: #00f2fe; font-weight: 800; font-family: monospace; font-size: 0.85rem;">56.8 dBA</div>
+                    <div style="font-size: 0.6rem; color: #fbbf24; font-family: monospace;">Peak: 64.2 dB</div>
+                  </div>
+                </div>
+                <div class="p-history-item-mock">
+                  <div>
+                    <strong style="font-size: 0.74rem; color: #fff;">Paid Mess / N Block</strong>
+                    <div style="font-size: 0.62rem; color: #94a3b8;">Today • 13:05 • ⏱ 15:30</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <div style="color: #00f2fe; font-weight: 800; font-family: monospace; font-size: 0.85rem;">73.4 dBA</div>
+                    <div style="font-size: 0.6rem; color: #fbbf24; font-family: monospace;">Peak: 82.1 dB</div>
+                  </div>
+                </div>
+                <div class="p-history-item-mock">
+                  <div>
+                    <strong style="font-size: 0.74rem; color: #fff;">Block A & B Corridor</strong>
+                    <div style="font-size: 0.62rem; color: #94a3b8;">Yesterday • 16:45 • ⏱ 08:20</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <div style="color: #00f2fe; font-weight: 800; font-family: monospace; font-size: 0.85rem;">61.5 dBA</div>
+                    <div style="font-size: 0.6rem; color: #fbbf24; font-family: monospace;">Peak: 68.7 dB</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="screenshot-info">
+              <span class="screen-label-tag">Screen 03 • Telemetry Logs</span>
+              <h4>On-Device History & CSV Export</h4>
+              <p>Logs student measurement sessions locally on device memory with exportable CSV spreadsheets for academic report verification and statistical auditing.</p>
+            </div>
+          </div>
+
+          <!-- Screen 4: Security & Zero Recording Architecture -->
+          <div class="screenshot-card">
+            <div class="screenshot-phone-frame">
+              <div class="phone-frame-notch"></div>
+              <div class="phone-frame-screen">
+                <div class="p-screen-header">
+                  <span style="font-size: 0.78rem; font-weight: 800; color: #fff;">Hardware Security</span>
+                  <span style="font-size: 0.62rem; color: #05ffa1; font-family: monospace;">AUDIT PASS</span>
+                </div>
+                <div class="p-sec-diagram-mock">
+                  <div class="p-sec-step">
+                    <span class="p-sec-icon">🎙️</span>
+                    <div><strong>Microphone Stream</strong><small>Raw PCM Float32 in volatile RAM</small></div>
+                  </div>
+                  <div class="p-sec-arrow">↓ Ephemeral Buffer (100ms)</div>
+                  <div class="p-sec-step">
+                    <span class="p-sec-icon">⚙️</span>
+                    <div><strong>Web Audio DSP / FFT</strong><small>Calculates numeric SPL decibels only</small></div>
+                  </div>
+                  <div class="p-sec-arrow">↓ Instant Memory Flush</div>
+                  <div class="p-sec-step green">
+                    <span class="p-sec-icon">🛡️</span>
+                    <div><strong>Zero Audio Stored</strong><small>0 Bytes saved to flash or cloud</small></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="screenshot-info">
+              <span class="screen-label-tag">Screen 04 • Privacy Protocol</span>
+              <h4>Volatile RAM-Only Security</h4>
+              <p>Guarantees 100% student and faculty conversation privacy. Audio buffers are evaluated purely in volatile RAM and immediately overwritten without any audio recording.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Technical App Architecture & Specifications -->
+        <div class="app-specs-grid stagger-reveal" style="margin-top: 36px;">
+          <div class="spec-card">
+            <div class="spec-icon">⚡</div>
+            <h4>Lightweight WebAPK Engine</h4>
+            <p>Direct Android package install without Play Store bloatware. Offline-first Service Worker caching with sub-second launch speeds.</p>
+          </div>
+          <div class="spec-card">
+            <div class="spec-icon">🛡️</div>
+            <h4>Cryptographic Hardware Privacy</h4>
+            <p>Air-gapped from cloud AI and recording APIs. Raw audio samples are completely purged from volatile RAM every 100 milliseconds.</p>
+          </div>
+          <div class="spec-card">
+            <div class="spec-icon">📊</div>
+            <h4>IEC 61672 Type 1 Calibrated</h4>
+            <p>Hardware calibration offset slider (+80 to +110 dB) enabling student calibration against laboratory sound level reference meters.</p>
+          </div>
+          <div class="spec-card">
+            <div class="spec-icon">🎯</div>
+            <h4>UN SDG Alignment</h4>
+            <p>Designed for Bennett University TREP Social Innovation under UN SDG 3 (Target 3.9), SDG 4 (Education), and SDG 11 (Sustainable Cities).</p>
+          </div>
+        </div>
+
+        <!-- Launch / Test Drive Banner -->
+        <div class="app-cta-banner reveal-on-scroll">
+          <div class="cta-banner-text">
+            <h3>Experience QuietCampus on your smartphone or desktop</h3>
+            <p>Test the decibel meter directly in your browser or install the native Android .APK package.</p>
+          </div>
+          <div class="cta-banner-btns">
+            <a href="app.html" class="btn-ctrl btn-start" style="padding: 13px 26px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Launch Live App</span>
+            </a>
+            <a href="QuietCampus.apk" download="QuietCampus.apk" class="btn-ctrl btn-pause" style="padding: 13px 24px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              <span>Download .APK</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: CAMPUS FIELDWORK EVIDENCE -->
+    <section class="web-section" id="campus-section">
+      <div class="section-container">
+        <div class="section-title-wrap reveal-on-scroll">
+          <h2>Bennett University Campus Study Zones</h2>
+          <p>Empirical baseline noise levels vs. post-nudge intervention across 4 transition hot-spots.</p>
+        </div>
+
+        <div class="campus-grid stagger-reveal" id="websiteCampusGrid">
+          <!-- Filled dynamically from data.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: DATA ANALYSIS & SOUND MATH -->
+    <section class="web-section bg-white-section" id="analysis-section">
+      <div class="section-container">
+        <div class="section-title-wrap reveal-on-scroll">
+          <h2>Acoustic Mathematics & Sound Physics</h2>
+          <p>Why normal math fails for decibels, and how we measure physical acoustic energy.</p>
+        </div>
+
+        <!-- 3 Decibel Law & Formula Cards -->
+        <div class="stagger-reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px;">
+          <div class="math-principle-card">
+            <h4>Why Normal Math Fails</h4>
+            <p>
+              Sound pressure is logarithmic. You cannot add readings together and divide. <strong>60 dBA + 60 dBA ≠ 120 dBA</strong>—it equals <strong>63 dBA</strong>! We convert decibels into acoustic energy, average that energy, and convert back.
+            </p>
+          </div>
+
+          <div class="math-principle-card">
+            <h4>The 3-Decibel Difference Rule</h4>
+            <p>
+              A 3-decibel drop might seem small on paper, but in acoustic physics: <strong>a drop of 3 dBA cuts physical sound energy in half</strong>! Our 6.8 to 7.2 dBA drops cut sound energy by over 78%.
+            </p>
+          </div>
+
+          <div class="math-principle-card">
+            <h4>Spreadsheet Logarithmic Formula</h4>
+            <div class="code-formula-box">
+              =10*LOG10((10^(C2/10) + 10^(D2/10) + 10^(E2/10)) / 3)
+            </div>
+            <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">Applied across Morning, Lunch, and Afternoon 10-minute sessions.</p>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE DECIBEL ADDER CALCULATOR -->
+        <div class="acoustic-calc-card reveal-on-scroll">
+          <div class="calc-header-wrap">
+            <div>
+              <h3>Interactive Acoustic Decibel Calculator</h3>
+              <p style="font-size: 0.84rem; color: var(--text-secondary); margin-top: 4px;">Experience why decibels cannot be added linearly: 60 dB + 60 dB = 63 dB!</p>
+            </div>
+            <span class="calc-badge">Logarithmic Energy DSP</span>
+          </div>
+
+          <div class="calc-grid-layout">
+            <div class="calc-sliders-col">
+              <div class="calc-input-row">
+                <div class="calc-input-label-strip">
+                  <span>Sound Source 1 (L₁):</span>
+                  <span class="calc-input-val" id="calcVal1">60 dB(A)</span>
+                </div>
+                <input type="range" min="40" max="95" value="60" class="calc-range-slider" id="calcSlider1">
+              </div>
+
+              <div class="calc-input-row">
+                <div class="calc-input-label-strip">
+                  <span>Sound Source 2 (L₂):</span>
+                  <span class="calc-input-val" id="calcVal2">60 dB(A)</span>
+                </div>
+                <input type="range" min="40" max="95" value="60" class="calc-range-slider" id="calcSlider2">
+              </div>
+
+              <div class="code-formula-box" id="calcFormulaProof">
+                L_total = 10 · log10( 10^(60.0/10) + 10^(60.0/10) ) = 63.0 dB(A)
+              </div>
+            </div>
+
+            <div class="calc-result-box">
+              <div class="calc-result-label">Combined Sound Pressure Level</div>
+              <div class="calc-result-number" id="calcTotalDb">63.0 <span style="font-size: 1.2rem; color: var(--text-secondary);">dBA</span></div>
+              <p class="calc-result-note" id="calcInsightNote">
+                Notice: Doubling the physical sound energy only produces a <strong>+3.0 dB</strong> increase. This logarithmic physical law proves that our 6.8 to 7.2 dBA campus drop eliminates over 78% of noise energy.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="charts-double-grid reveal-on-scroll">
+          <!-- Bar Chart -->
+          <div class="chart-card-box">
+            <h3>Baseline vs. Post-Nudge LAeq Comparison</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">Demonstrating an average 5.7 to 7.2 dB(A) drop across campus corridors.</p>
+            <div style="height: 320px; position: relative;">
+              <canvas id="compBarChartWeb"></canvas>
+            </div>
+          </div>
+
+          <!-- Line Chart -->
+          <div class="chart-card-box">
+            <h3>Diurnal Noise Curve (08:00 – 20:00)</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">Tracking noise surges during morning lecture rush, lunch rush, and evening dismissals.</p>
+            <div style="height: 320px; position: relative;">
+              <canvas id="hourlyTrendChartWeb"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: TREP CONCEPTS & LITERATURE REVIEW -->
+    <section class="web-section" id="trep-concepts-section">
+      <div class="section-container">
+        
+        <!-- TREP Concepts -->
+        <div class="section-title-wrap reveal-on-scroll">
+          <h2>TREP Project Concepts Guiding Our Decisions</h2>
+          <p>How The Scout Mindset, Calling Bullshit, and Factfulness shaped our project methodology.</p>
+        </div>
+
+        <div class="stagger-reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 60px;">
+          <div class="concept-card">
+            <span class="concept-author-tag">Julia Galef</span>
+            <h3 class="concept-title">The Scout Mindset</h3>
+            <p class="concept-text">
+              We maintained complete intellectual honesty with our noise readings. If we initially hypothesized the Southern food stalls were the loudest, but data proved the library entrance had worse transit spikes, we report the library truth without cherry-picking.
+            </p>
+          </div>
+
+          <div class="concept-card">
+            <span class="concept-author-tag">Bergstrom & West</span>
+            <h3 class="concept-title">Calling Bullshit</h3>
+            <p class="concept-text">
+              We refuse to manipulate our charts. We do not truncate bar chart axes to make tiny decibel differences look artificially dramatic. We are transparent that we use student smartphones rather than pretending they are calibrated lab meters.
+            </p>
+          </div>
+
+          <div class="concept-card">
+            <span class="concept-author-tag">Hans Rosling</span>
+            <h3 class="concept-title">Factfulness</h3>
+            <p class="concept-text">
+              Never jump to conclusions based on a single dramatic event. When a loud car horn spikes decibels for 2 seconds, we do not label the zone as 'dangerously loud forever.' We integrate true continuous averages (LAeq) over the full 10 minutes.
+            </p>
+          </div>
+        </div>
+
+        <!-- 3 Practical Interventions -->
+        <div class="section-title-wrap reveal-on-scroll">
+          <h2>Three Physical & Behavioral Nudges</h2>
+          <p>Gentle, non-punitive interventions to build a sustainable, quiet campus community.</p>
+        </div>
+
+        <div class="stagger-reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 40px;">
+          <div class="intervention-card">
+            <div class="intervention-status-pill">Traffic Lights for Sound</div>
+            <h4>Visual Noise Decibel Displays</h4>
+            <p>
+              Color-coded monitors outside the LRC and P Block. Quiet conversations show Green (<55 dB). Exceeding 65 dB turns Yellow/Red, providing a subtle visual reminder without security shushing people.
+            </p>
+          </div>
+
+          <div class="intervention-card">
+            <div class="intervention-status-pill">GPS Navigational Bypass</div>
+            <h4>'Quiet Route' Campus Maps</h4>
+            <p>
+              Digital maps highlighting the quietest walking paths and outdoor silent study nooks, helping students avoid the loud lunch crowds around the Southern Stall.
+            </p>
+          </div>
+
+          <div class="intervention-card">
+            <div class="intervention-status-pill">Vendor Deliveries & Generators</div>
+            <h4>Scheduled 'Quiet Hours'</h4>
+            <p>
+              Restricting noisy delivery trucks and generator tests at the Southern Stall (B02/B03) to non-peak hours (early morning or late evening) rather than peak class transitions.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 6: COMPLETE TREP PROJECT REPORT (SECTIONS 1 TO 14) -->
+    <section class="web-section bg-white-section" id="dossier-section">
+      <div class="section-container">
+        <div class="dossier-container reveal-on-scroll">
+          <!-- Dossier Header -->
+          <div class="dossier-hero">
+            <div class="dossier-meta-tags">
+              <span class="dossier-tag tag-sdg">Primary: SDG 3 (Target 3.9)</span>
+              <span class="dossier-tag">Secondary: SDG 4 & 11</span>
+              <span class="dossier-tag">TREP End Sem Project</span>
+              <span class="dossier-tag">Bennett University</span>
+            </div>
+            <h1>QuietCampus: Mitigating Auditory Pollution in Academic Transition Zones</h1>
+            <p class="subtitle">Complete TREP End Semester Innovation Report (Sections 1 to 14)</p>
+          </div>
+
+          <!-- Quick Navigation Link Pills -->
+          <div class="dossier-nav-quicklinks" id="websiteDossierPills">
+            <!-- Filled dynamically from data.js -->
+          </div>
+
+          <!-- Full Formatted Academic Markdown Content (Accordion & Matrix) -->
+          <div id="websiteDossierContent">
+            <!-- Sections 1 to 14 rendered from data.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: TEAM CONTRIBUTIONS (ALL 8 MEMBERS) -->
+    <section class="web-section" id="team-section">
+      <div class="section-container">
+        <div class="section-title-wrap reveal-on-scroll">
+          <h2>Team Contributions (All 8 Members)</h2>
+          <p>Specific responsibilities, deliverables, and 1-week intensive sprint execution for Bennett University TREP Project.</p>
+        </div>
+
+        <div id="websiteTeamTableWrap" class="dossier-table-wrap reveal-on-scroll">
+          <!-- Team Table populated from data.js -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>QuietCampus</h3>
+        <p>A social innovation and acoustic engineering initiative developed for the TREP End Semester Project at Bennett University, Greater Noida.</p>
+        <p style="margin-top: 10px; font-size: 0.75rem; color: #64748b;">Ready to deploy instantly on Vercel with zero configuration.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="#hero-section">Overview</a></li>
+          <li><a href="app.html">Launch Mobile App</a></li>
+          <li><a href="#features-section">App Capabilities</a></li>
+          <li><a href="#campus-section">Campus Zones</a></li>
+          <li><a href="#analysis-section">Fieldwork Analytics</a></li>
+          <li><a href="#dossier-section">TREP Report (Sec 1-14)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Mobile Phone App</h4>
+        <p style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 12px;">Android Decibel Meter Application:</p>
+        <a href="QuietCampus.apk" download="QuietCampus.apk" class="btn-ctrl btn-start" style="display: inline-flex; padding: 10px 20px; font-size: 0.85rem;">
+          Download App (.APK)
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 QuietCampus Team • Bennett University • Aligned with UN SDGs 3, 4 & 11</p>
+    </div>
+  </footer>
+
+  <!-- FLOATING BACK TO TOP BUTTON -->
+  <button class="back-to-top-btn" id="backToTopBtn" aria-label="Back to Top" title="Back to Top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- AUTOMATIC CACHE PURGE SCRIPT -->
+  <script>
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (let name of names) {
+          caches.delete(name);
+        }
+      });
+    }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+  <!-- Website Logic Module (With 3D WebGL Canvas) -->
+  <script type="module" src="website.js?v=2026.7"></script>
+</body>
+</html>

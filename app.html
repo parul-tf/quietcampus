@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>QuietCampus Mobile App | Decibel Meter & Noise Exposure</title>
+  
+  <!-- PWA & Mobile Web App Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuietCampus">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="mobile-app.css">
+</head>
+<body class="mobile-app-body">
+
+  <!-- Desktop Wrapper: If viewed on desktop, render inside a sleek mobile phone frame -->
+  <div class="device-frame-outer">
+    <div class="device-phone-chassis">
+      <div class="phone-speaker-notch"></div>
+      
+      <!-- Actual Mobile App Screen Container -->
+      <div class="phone-screen-viewport">
+
+        <!-- Mobile Top App Bar -->
+        <header class="mobile-top-bar">
+          <div class="mobile-bar-left">
+            <a href="index.html" class="mobile-back-link" title="Back to Project Website">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </a>
+            <img src="app-logo.png" alt="QuietCampus Logo" class="app-header-logo">
+            <div class="mobile-bar-titles">
+              <h2>QuietCampus</h2>
+              <span>Bennett University • Decibel Meter</span>
+            </div>
+          </div>
+          <div class="mobile-bar-right">
+            <button class="header-security-badge" id="btnAppSecurityShield" title="Audio Privacy & Security Guarantee">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>NO RECORDING • RAM ONLY</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Install PWA Banner on Phone -->
+        <div class="mobile-install-banner" id="mobileInstallBanner" style="display: none;">
+          <div style="font-size: 0.78rem; font-weight: 600;">📲 Install QuietCampus to your phone</div>
+          <button class="btn-banner-action" id="btnBannerInstall">Install</button>
+        </div>
+
+        <!-- Mobile Views Container -->
+        <div class="mobile-views-wrapper">
+
+          <!-- VIEW 1: LIVE SOUND METER (dBm / dB CALCULATOR) -->
+          <div class="mobile-tab-view active" id="view-meter">
+            
+            <!-- Campus Location Selector -->
+            <div class="mobile-zone-picker">
+              <div class="picker-header">
+                <span class="picker-label">📍 Campus Monitoring Zone</span>
+                <label class="sim-check-wrap">
+                  <input type="checkbox" id="modeSimCheckbox"> Simulation Mode
+                </label>
+              </div>
+              <select id="sessionZoneSelect" class="mobile-select">
+                <option value="paid_mess">Paid Mess / Southern Stall & N Block</option>
+                <option value="lrc">Outside LRC (Library Resource Centre)</option>
+                <option value="ab_corridor">Between Blocks A & B (Breezeway)</option>
+                <option value="p_block">P Block Entrance (Transit Plaza)</option>
+                <option value="private">Custom Room / Silent Study</option>
+              </select>
+            </div>
+
+            <!-- Central Decibel Meter Box -->
+            <div class="mobile-meter-display">
+              <div class="mobile-meter-status-bar">
+                <div class="mic-status-pill" id="micStatusPill">
+                  <svg class="mic-status-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                  <span id="micStatusText">Standby</span>
+                </div>
+                <div class="session-timer" id="sessionTimer">00:00</div>
+              </div>
+
+              <!-- Circular Decibel Dial & Large Number -->
+              <div class="meter-centerpiece">
+                <div class="meter-ring-container">
+                  <svg class="meter-ring-svg" viewBox="0 0 200 200">
+                    <defs>
+                      <linearGradient id="meterGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#05ffa1" />
+                        <stop offset="50%" stop-color="#00f2fe" />
+                        <stop offset="100%" stop-color="#ff0055" />
+                      </linearGradient>
+                    </defs>
+                    <circle class="meter-ring-bg" cx="100" cy="100" r="90" />
+                    <circle class="meter-ring-progress" id="meterRingProgress" cx="100" cy="100" r="90" />
+                  </svg>
+                  <div class="meter-value-wrap">
+                    <div class="meter-reading-number" id="currentDbReading">--.-</div>
+                    <div class="meter-reading-unit">dB(A) SPL</div>
+                  </div>
+                </div>
+
+                <div class="meter-category-badge" id="meterCategoryBadge">
+                  Ready to Measure
+                </div>
+              </div>
+
+              <!-- Real-time Oscilloscope Audio Canvas -->
+              <div class="meter-canvas-wrapper" style="height: 52px; margin-bottom: 14px;">
+                <canvas id="visualizerCanvas"></canvas>
+              </div>
+
+              <!-- Running Stats Triad -->
+              <div class="meter-stats-triad">
+                <div class="stat-column">
+                  <div class="stat-label">10-Min LAeq</div>
+                  <div class="stat-val" id="runningLaeq">--.-</div>
+                </div>
+                <div class="stat-column">
+                  <div class="stat-label">Peak Lmax</div>
+                  <div class="stat-val" id="peakDb">--.-</div>
+                </div>
+                <div class="stat-column">
+                  <div class="stat-label">Floor Lmin</div>
+                  <div class="stat-val" id="minDb">--.-</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Estimated Sound Exposure Card -->
+            <div class="mobile-exposure-card">
+              <div class="dose-header">
+                <div>
+                  <h4>WHO Exposure Reference</h4>
+                  <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 1px;">Daily reference benchmark (70 dB A-weighted)</p>
+                </div>
+                <span class="dose-percentage-pill" id="dosePercentageText">0.0% Ref Dose</span>
+              </div>
+
+              <div class="dose-progress-bar-bg">
+                <div class="dose-progress-fill" id="doseProgressFill"></div>
+              </div>
+
+              <div class="guidance-box" id="guidanceBoxText">
+                Tap "Start Measuring" to calculate real-time decibels and average corridor noise.
+              </div>
+
+              <div class="non-negotiable-disclaimer">
+                <strong>Privacy Guarantee:</strong> Sound pressure is computed entirely in volatile RAM. No audio is recorded or stored.
+              </div>
+            </div>
+
+            <!-- Audio Recording Security & Privacy Shield Card -->
+            <div class="mobile-security-card">
+              <div class="sec-card-header">
+                <div class="sec-icon-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <div class="sec-card-text">
+                  <div class="sec-card-title">Hardware Recording Security</div>
+                  <div class="sec-card-sub">Volatile RAM processing • Zero disk writes • 100% offline</div>
+                </div>
+                <button class="sec-verify-btn" id="btnOpenSecurityModal" title="View Security Verification">Audit</button>
+              </div>
+              <div class="sec-badges-row">
+                <span class="sec-pill">🔒 0 Bytes Recorded</span>
+                <span class="sec-pill">⚡ 100ms Ephemeral Flush</span>
+                <span class="sec-pill">🛡️ Zero Cloud Upload</span>
+              </div>
+            </div>
+
+            <!-- Start / Pause / Stop Buttons -->
+            <div class="mobile-controls-bar">
+              <button class="btn-ctrl btn-start" id="btnStartMeter">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Start Measuring</span>
+              </button>
+              <button class="btn-ctrl btn-pause" id="btnPauseMeter" style="display: none;">
+                <span>⏸</span>
+                <span>Pause</span>
+              </button>
+              <button class="btn-ctrl btn-stop" id="btnStopMeter" style="display: none;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+                <span>Stop</span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- VIEW 2: CAMPUS STUDY ZONES -->
+          <div class="mobile-tab-view" id="view-zones">
+            <div class="tab-view-inner">
+              <div class="view-header-strip">
+                <h3>Campus Study Zones</h3>
+                <p>Bennett University baseline noise & interventions.</p>
+              </div>
+              
+              <div id="mobileZonesContainer" class="zones-cards-stack">
+                <!-- Filled dynamically by JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- VIEW 3: SAVED HISTORY -->
+          <div class="mobile-tab-view" id="view-history">
+            <div class="tab-view-inner">
+              <div class="view-header-strip">
+                <h3>Measurement History</h3>
+                <p>Saved locally on your smartphone in high-resolution logs.</p>
+              </div>
+              
+              <div id="mobileHistoryContainer">
+                <!-- Filled dynamically by JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- VIEW 4: SETTINGS & CALIBRATION -->
+          <div class="mobile-tab-view" id="view-settings">
+            <div class="tab-view-inner settings-stack">
+              <div class="view-header-strip">
+                <h3>App Settings & Hardware</h3>
+                <p>Acoustic calibration and hardware telemetry.</p>
+              </div>
+
+              <!-- Calibration -->
+              <div class="settings-card">
+                <div class="settings-card-title">Microphone Calibration Offset</div>
+                <p class="settings-card-desc">Fine-tune reference SPL calibration against an IEC 61672 Type 1 sound level meter.</p>
+                <div class="cal-control-row">
+                  <input type="range" id="calOffsetRange" min="80" max="110" step="0.5" value="96" class="cyber-range">
+                  <span id="calOffsetVal" class="cal-val-badge">+96.0 dB</span>
+                </div>
+              </div>
+
+              <!-- Privacy Notice -->
+              <div class="settings-card">
+                <div class="settings-card-title">Privacy-First Architecture</div>
+                <p class="settings-card-desc">
+                  Raw PCM microphone buffers are evaluated strictly in volatile RAM and immediately discarded. <strong>Zero audio recording, zero cloud telemetry, and zero speech-to-text processing.</strong>
+                </p>
+              </div>
+
+              <!-- Return to Project Website Link -->
+              <div class="settings-back-wrap">
+                <a href="index.html" class="settings-back-btn">
+                  ← Back to Bennett TREP Project Report
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Mobile Bottom Navigation Bar -->
+        <nav class="mobile-bottom-nav">
+          <button class="nav-item active" data-view="view-meter">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+            <span>dB Meter</span>
+          </button>
+          <button class="nav-item" data-view="view-zones">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span>Zones</span>
+          </button>
+          <button class="nav-item" data-view="view-history">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>History</span>
+          </button>
+          <button class="nav-item" data-view="view-settings">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Settings</span>
+          </button>
+        </nav>
+
+        <!-- SESSION RESULT MODAL -->
+        <div class="modal-overlay" id="mobileResultModal">
+          <div class="modal-content-card">
+            <button class="modal-close-btn" onclick="document.getElementById('mobileResultModal').classList.remove('active')">&times;</button>
+            <div class="modal-header-strip">
+              <span class="modal-badge">SESSION COMPLETED</span>
+              <h3 id="mResLocation">Bennett University</h3>
+              <p>Auditory footprint and WHO benchmark telemetry</p>
+            </div>
+
+            <div class="modal-stats-grid">
+              <div class="m-stat-box">
+                <div class="m-stat-label">Equivalent LAeq</div>
+                <div class="m-stat-val val-cyan" id="mResLaeq">--.- dB(A)</div>
+              </div>
+              <div class="m-stat-box">
+                <div class="m-stat-label">Peak Lmax</div>
+                <div class="m-stat-val val-amber" id="mResPeak">--.- dB(A)</div>
+              </div>
+              <div class="m-stat-box">
+                <div class="m-stat-label">Duration</div>
+                <div class="m-stat-val" id="mResDuration">00:00</div>
+              </div>
+              <div class="m-stat-box">
+                <div class="m-stat-label">Variation</div>
+                <div class="m-stat-val" id="mResVariation">--.- dB</div>
+              </div>
+            </div>
+
+            <div class="modal-dose-banner">
+              <div class="m-dose-title">WHO Reference Dose: <span id="mResDose">--</span></div>
+              <div class="m-dose-sub">Acoustic dosage calculated for university study environment</div>
+            </div>
+
+            <div class="modal-actions-bar">
+              <button class="btn-ctrl btn-start" id="mBtnSaveResult">Save Log</button>
+              <button class="btn-ctrl btn-pause" id="mBtnShareResult">Share</button>
+              <button class="btn-ctrl btn-stop" id="mBtnDiscardResult">Discard</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- AUDIO RECORDING SECURITY & HARDWARE PRIVACY MODAL -->
+        <div class="modal-overlay" id="mobileSecurityModal">
+          <div class="modal-content-card">
+            <button class="modal-close-btn" onclick="document.getElementById('mobileSecurityModal').classList.remove('active')">&times;</button>
+            <div class="modal-header-strip">
+              <span class="modal-badge sec-badge">HARDWARE PRIVACY AUDIT</span>
+              <h3>Audio Recording Protection</h3>
+              <p>Cryptographic & RAM-Only Security Verification</p>
+            </div>
+
+            <div class="security-audit-list">
+              <div class="audit-item">
+                <div class="audit-icon-check">✓</div>
+                <div class="audit-text">
+                  <strong>Zero Voice Recording Guaranteed</strong>
+                  <p>Microphone audio is never recorded into audio files (.wav, .mp3, .m4a). Flash storage writes are completely disabled.</p>
+                </div>
+              </div>
+
+              <div class="audit-item">
+                <div class="audit-icon-check">✓</div>
+                <div class="audit-text">
+                  <strong>100% Volatile Ephemeral RAM</strong>
+                  <p>PCM audio frames are converted to decibels via digital FFT in temporary browser memory, then immediately purged every 100 milliseconds.</p>
+                </div>
+              </div>
+
+              <div class="audit-item">
+                <div class="audit-icon-check">✓</div>
+                <div class="audit-text">
+                  <strong>Zero Cloud Audio Uploads</strong>
+                  <p>The audio engine runs 100% locally on your phone hardware. Zero audio buffers, speech-to-text transcripts, or telemetry are ever uploaded.</p>
+                </div>
+              </div>
+
+              <div class="audit-item">
+                <div class="audit-icon-check">✓</div>
+                <div class="audit-text">
+                  <strong>Bennett University Campus Privacy</strong>
+                  <p>Protects confidential student conversations, faculty lectures, and dining chatter while measuring only physical sound pressure.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-actions-bar">
+              <button class="btn-ctrl btn-start" style="width: 100%;" onclick="document.getElementById('mobileSecurityModal').classList.remove('active')">Acknowledge & Close</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').then(
+          (reg) => console.log('SW registered:', reg.scope),
+          (err) => console.log('SW registration error:', err)
+        );
+      });
+    }
+  </script>
+
+  <script type="module" src="mobile-app.js"></script>
+</body>
+</html>

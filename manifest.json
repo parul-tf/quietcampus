@@ -1,0 +1,26 @@
+{
+  "name": "QuietCampus - Bennett University Noise Exposure Meter",
+  "short_name": "QuietCampus",
+  "description": "Personal sound exposure meter, campus acoustic zoning, and TREP End Semester Project platform.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#0d9488",
+  "categories": ["education", "health", "utilities"],
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "64x64",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "app-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

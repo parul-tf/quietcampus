@@ -1,0 +1,8 @@
+# Build and temp directories
+android_build/
+android_res/
+__pycache__/
+*.pyc
+*.idsig
+*.log
+.DS_Store
