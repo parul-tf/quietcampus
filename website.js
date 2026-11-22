@@ -700,8 +700,8 @@ class QuietCampusWebsite {
   initCharts() {
     if (!window.Chart) return;
 
-    // Professional, clean human academic chart defaults
-    Chart.defaults.color = '#475569';
+    // Cyber-OLED Acoustic Chart Defaults
+    Chart.defaults.color = '#94a3b8';
     Chart.defaults.font.family = "'Inter', -apple-system, sans-serif";
     Chart.defaults.font.size = 12;
 
@@ -720,16 +720,16 @@ class QuietCampusWebsite {
             {
               label: 'Pre-Intervention Baseline (dBA)',
               data: baselineData,
-              backgroundColor: '#f87171',
-              borderColor: '#ef4444',
+              backgroundColor: 'rgba(255, 0, 85, 0.45)',
+              borderColor: '#ff0055',
               borderWidth: 1.5,
               borderRadius: 6
             },
             {
               label: 'Post-Intervention (dBA)',
               data: postData,
-              backgroundColor: '#0f766e',
-              borderColor: '#0d9488',
+              backgroundColor: 'rgba(5, 255, 161, 0.55)',
+              borderColor: '#05ffa1',
               borderWidth: 1.5,
               borderRadius: 6
             },
@@ -737,10 +737,10 @@ class QuietCampusWebsite {
               label: 'CPCB Legal Benchmark (dBA)',
               data: targetData,
               type: 'line',
-              borderColor: '#d97706',
+              borderColor: '#00f2fe',
               borderDash: [5, 5],
               borderWidth: 2,
-              pointBackgroundColor: '#d97706',
+              pointBackgroundColor: '#00f2fe',
               pointRadius: 4,
               fill: false
             }
@@ -753,17 +753,17 @@ class QuietCampusWebsite {
             legend: {
               position: 'top',
               labels: {
-                color: '#0f172a',
+                color: '#ffffff',
                 font: { weight: 600, size: 12 },
                 usePointStyle: true,
                 padding: 16
               }
             },
             tooltip: {
-              backgroundColor: '#0f172a',
+              backgroundColor: '#090e1c',
               titleColor: '#ffffff',
-              bodyColor: '#5eead4',
-              borderColor: '#334155',
+              bodyColor: '#05ffa1',
+              borderColor: 'rgba(0, 242, 254, 0.3)',
               borderWidth: 1,
               padding: 10,
               cornerRadius: 8
@@ -772,14 +772,14 @@ class QuietCampusWebsite {
           scales: {
             x: {
               grid: { display: false },
-              ticks: { color: '#475569', font: { size: 11, weight: 500 } }
+              ticks: { color: '#94a3b8', font: { size: 11, weight: 500 } }
             },
             y: {
               min: 30,
               max: 100,
-              grid: { color: '#e2e8f0' },
-              ticks: { color: '#475569', font: { family: "'JetBrains Mono', monospace" } },
-              title: { display: true, text: 'LAeq in dB(A)', color: '#0f172a', font: { weight: 600 } }
+              grid: { color: 'rgba(255, 255, 255, 0.08)' },
+              ticks: { color: '#94a3b8', font: { family: "'JetBrains Mono', monospace" } },
+              title: { display: true, text: 'LAeq in dB(A)', color: '#f8fafc', font: { weight: 600 } }
             }
           }
         }
@@ -800,8 +800,8 @@ class QuietCampusWebsite {
             {
               label: 'Southern Stall Baseline',
               data: messZone.hourlyBaseline,
-              borderColor: '#ef4444',
-              backgroundColor: 'rgba(239, 68, 68, 0.08)',
+              borderColor: '#ff0055',
+              backgroundColor: 'rgba(255, 0, 85, 0.12)',
               fill: true,
               borderWidth: 2,
               pointRadius: 3,
@@ -810,8 +810,8 @@ class QuietCampusWebsite {
             {
               label: 'Southern Stall Post-Nudge',
               data: messZone.hourlyPost,
-              borderColor: '#0f766e',
-              backgroundColor: 'rgba(15, 118, 110, 0.08)',
+              borderColor: '#05ffa1',
+              backgroundColor: 'rgba(5, 255, 161, 0.15)',
               fill: true,
               borderWidth: 2.5,
               pointRadius: 3.5,
@@ -820,7 +820,8 @@ class QuietCampusWebsite {
             {
               label: 'LRC Foyer Baseline',
               data: lrcZone.hourlyBaseline,
-              borderColor: '#d97706',
+              borderColor: '#00f2fe',
+              backgroundColor: 'rgba(0, 242, 254, 0.08)',
               borderDash: [5, 5],
               borderWidth: 2,
               pointRadius: 0,
@@ -835,17 +836,17 @@ class QuietCampusWebsite {
             legend: {
               position: 'top',
               labels: {
-                color: '#0f172a',
+                color: '#ffffff',
                 font: { weight: 600, size: 12 },
                 usePointStyle: true,
                 padding: 16
               }
             },
             tooltip: {
-              backgroundColor: '#0f172a',
+              backgroundColor: '#090e1c',
               titleColor: '#ffffff',
-              bodyColor: '#5eead4',
-              borderColor: '#334155',
+              bodyColor: '#00f2fe',
+              borderColor: 'rgba(0, 242, 254, 0.3)',
               borderWidth: 1,
               padding: 10,
               cornerRadius: 8
@@ -854,14 +855,14 @@ class QuietCampusWebsite {
           scales: {
             x: {
               grid: { display: false },
-              ticks: { color: '#475569', font: { size: 11, weight: 500 } }
+              ticks: { color: '#94a3b8', font: { size: 11, weight: 500 } }
             },
             y: {
               min: 40,
               max: 95,
-              grid: { color: '#e2e8f0' },
-              ticks: { color: '#475569', font: { family: "'JetBrains Mono', monospace" } },
-              title: { display: true, text: 'LAeq in dB(A)', color: '#0f172a', font: { weight: 600 } }
+              grid: { color: 'rgba(255, 255, 255, 0.08)' },
+              ticks: { color: '#94a3b8', font: { family: "'JetBrains Mono', monospace" } },
+              title: { display: true, text: 'LAeq in dB(A)', color: '#f8fafc', font: { weight: 600 } }
             }
           }
         }
