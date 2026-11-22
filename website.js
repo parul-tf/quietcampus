@@ -52,7 +52,6 @@ class QuietCampusWebsite {
     this.setupQrCode();
     this.renderCampusZones();
     this.renderDossier();
-    this.renderTeamTable();
     this.initCharts();
     this.bindDownloads();
     this.checkMobileVisitor();

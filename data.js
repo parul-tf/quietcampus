@@ -416,24 +416,24 @@ In accordance with course principles, we acknowledge:
     },
     {
       number: 12,
-      id: "team-contributions",
-      title: "Team Contributions",
-      summary: "Specific responsibilities and work completed by all 8 team members.",
+      id: "project-work-breakdown",
+      title: "Sprint Execution & Deliverables",
+      summary: "Functional project deliverables, modules, and 1-week sprint execution breakdown.",
       content: `
-### Work Breakdown & Allocation (All 8 Members)
+### Functional Module Breakdown (1-Week Sprint)
 
-| Member Name | Core Project Role | Primary Tasks & Deliverables | Sprint Focus |
+| Engineering Track | Core Responsibilities | Primary Tasks & Deliverables | Sprint Output |
 |---|---|---|---|
-| **Aarav Sharma** | Team Lead & Systems Architecture | Project coordination, TREP conceptual framework, administration liaison, methodology synthesis | 1-Week Sprint Lead |
-| **Priya Nair** | Acoustic Fieldwork & Data Lead | Standardized 8-point measurement protocol, 10-minute session timing, logarithmic $L_{Aeq}$ formula validation | Fieldwork & Protocol |
-| **Rohan Verma** | Mobile Web App & PWA Developer | Web Audio API engineering, A-weighting digital filter, PWA offline caching, download packaging | App & PWA Development |
-| **Ananya Iyer** | Literature Review & SDG Lead | Synthesis of 5 scientific papers (NIT Kurukshetra, SRM, Hong Kong, etc.), SDG 3 & 11 justification | Literature & SDG Alignment |
-| **Kabir Mehta** | Physical Interventions & Signage Lead | Visual traffic light decibel specifications, floor decal placement, quiet hours policy draft | Physical Nudge Solutions |
-| **Sanya Gupta** | UI/UX Designer & Accessibility Lead | Mobile app UI wireframes, color-contrast accessibility, non-alarming palette design | UI/UX & Accessibility |
-| **Dev Patel** | Advanced Data Analysis Lead | Scattergraphs for crowd density vs. $L_{Aeq}$, vehicle/horn composition, sensitivity analysis | Data Analytics & Charts |
-| **Meera Sen** | Stakeholder Surveys & Field Logistics | 142 student questionnaires, manual pedestrian boundary counts, GPS & photo verification | Surveys & Field Logistics |
+| **Systems Architecture** | Project Architecture & Protocol | Mathematical acoustic framework, TREP syllabus compliance, administrative documentation | 1-Week Sprint Framework |
+| **Acoustic Fieldwork** | Standardized Sound Measurement | 8-point campus monitoring protocol, 10-minute session timing, logarithmic $L_{Aeq}$ formula validation | Fieldwork Data Logs |
+| **Mobile Application & DSP** | Web Audio API & PWA | High-precision DSP audio pipeline, A-weighting digital filter, offline caching, Android APK package | Mobile App & APK |
+| **Research & SDG Analysis** | Peer-Reviewed Literature Review | Synthesis of 5 acoustic research studies, UN SDG 3 (Target 3.9), SDG 4, and SDG 11 alignment | Literature Synthesis |
+| **Physical Interventions** | Behavioral Choice Architecture | Visual decibel displays ("Traffic Lights for Sound"), Quiet Route floor decals, quiet hours policy | Physical Interventions |
+| **UI/UX & Accessibility** | Acoustic Human Interface | High-contrast mobile UI, non-punitive acoustic nudges, WCAG 2.1 AA accessibility compliance | Interface Design |
+| **Acoustic Data Analytics** | Correlation & Math Verification | Logarithmic decibel summation, diurnal noise curves, crowd-density correlation curves | Mathematical Models |
+| **Field Surveys & Logistics** | Student Perception Surveys | 142 student questionnaires, pedestrian boundary counts, GPS campus verification | Field Survey Dossier |
 
-**Total Team Effort**: 1-Week Intensive Project Sprint (All 8 members collaborating actively across 7 days).
+**Total Project Effort**: 1-Week Intensive Project Sprint collaborating across 8 functional engineering tracks.
       `
     },
     {
