@@ -993,8 +993,11 @@ class QuietCampusWebsite {
         border: 1px solid #14b8a6;
       `;
       banner.innerHTML = `
-        <span><strong>On Phone:</strong> Android Decibel Meter App:</span>
-        <a href="QuietCampus.apk" download="QuietCampus.apk" style="background: #0d9488; color: #fff; text-decoration: none; padding: 6px 14px; border-radius: 999px; font-weight: 700; font-size: 0.75rem;">Download .APK</a>
+        <span style="font-weight: 700; display: flex; align-items: center; gap: 6px;">📱 QuietCampus App:</span>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <a href="app.html" style="background: linear-gradient(135deg, #05ffa1 0%, #00f2fe 100%); color: #050811; text-decoration: none; padding: 7px 14px; border-radius: 999px; font-weight: 800; font-size: 0.76rem;">Launch App</a>
+          <a href="QuietCampus.apk" download="QuietCampus.apk" style="background: rgba(255,255,255,0.12); color: #fff; text-decoration: none; padding: 7px 12px; border-radius: 999px; font-weight: 600; font-size: 0.72rem; border: 1px solid rgba(255,255,255,0.2);">.APK</a>
+        </div>
       `;
       document.body.appendChild(banner);
     }

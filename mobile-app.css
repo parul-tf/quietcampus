@@ -1498,7 +1498,29 @@ canvas#visualizerCanvas {
   margin: 0;
 }
 
-/* 12. REAL MOBILE DEVICE RESPONSIVE */
+/* 12. REAL MOBILE DEVICE RESPONSIVE & EMBEDDED IFRAME */
+body.is-embedded-iframe {
+  background: transparent !important;
+}
+body.is-embedded-iframe .mobile-back-link {
+  display: none !important;
+}
+body.is-embedded-iframe .device-frame-outer {
+  padding: 0 !important;
+  height: 100% !important;
+}
+body.is-embedded-iframe .device-phone-chassis {
+  max-width: 100vw !important;
+  width: 100% !important;
+  height: 100vh !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+body.is-embedded-iframe .phone-speaker-notch {
+  display: none !important;
+}
+
 @media (max-width: 600px) {
   body.mobile-app-body {
     background: #050811;

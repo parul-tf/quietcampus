@@ -157,98 +157,33 @@
             </div>
           </div>
 
-          <!-- Right Hero: Modern Cyber-OLED Smartphone App Showcase -->
+          <!-- Right Hero: Live Interactive Mobile App Preview -->
           <div class="hero-phone-preview-col reveal-from-right is-visible">
             <div class="hero-cyber-phone-chassis" id="card3dTilt">
               
-              <!-- Dynamic Island Notch -->
-              <div class="hero-phone-notch"></div>
-              
-              <!-- OLED Screen Display -->
-              <div class="hero-oled-viewport">
-                
-                <!-- Phone Top Bar -->
-                <div class="h-app-bar">
-                  <div class="h-app-brand">
-                    <img src="app-logo.png" alt="QuietCampus Logo" class="h-app-logo">
-                    <div>
-                      <div class="h-app-name">QuietCampus</div>
-                      <div class="h-app-sub">Bennett University • Decibel Meter</div>
-                    </div>
-                  </div>
-                  <span class="h-app-sec-pill">🔒 RAM ONLY</span>
-                </div>
-
-                <!-- Zone Indicator -->
-                <div class="h-app-zone-strip">
-                  <span class="h-zone-lbl">📍 Monitoring Zone</span>
-                  <span class="h-zone-name">Outside LRC (Library Resource Centre)</span>
-                </div>
-
-                <!-- Circular Decibel Meter Dial -->
-                <div class="h-meter-ring-wrap">
-                  <svg class="h-meter-svg" viewBox="0 0 180 180">
-                    <circle cx="90" cy="90" r="76" stroke="rgba(255,255,255,0.06)" stroke-width="12" fill="none"/>
-                    <circle cx="90" cy="90" r="76" stroke="#05ffa1" stroke-width="12" stroke-dasharray="477" stroke-dashoffset="170" stroke-linecap="round" fill="none" class="h-meter-ring-anim"/>
-                  </svg>
-                  <div class="h-meter-val-box">
-                    <div class="h-meter-db-num" id="heroLiveDb">58.4</div>
-                    <div class="h-meter-db-unit">dB(A) SPL</div>
-                  </div>
-                </div>
-
-                <!-- Sound Status Category Badge -->
-                <div class="h-status-badge">
-                  QUIET • STUDY READY (&lt;65 dB)
-                </div>
-
-                <!-- 30-Band Real-Time Spectrum Equalizer Bars -->
-                <div class="h-spectrum-bars">
-                  <span style="height: 35%;"></span><span style="height: 55%;"></span><span style="height: 80%;"></span>
-                  <span style="height: 65%;"></span><span style="height: 90%;"></span><span style="height: 70%;"></span>
-                  <span style="height: 45%;"></span><span style="height: 85%;"></span><span style="height: 60%;"></span>
-                  <span style="height: 95%;"></span><span style="height: 75%;"></span><span style="height: 50%;"></span>
-                  <span style="height: 65%;"></span><span style="height: 40%;"></span><span style="height: 85%;"></span>
-                  <span style="height: 70%;"></span><span style="height: 55%;"></span><span style="height: 75%;"></span>
-                  <span style="height: 90%;"></span><span style="height: 60%;"></span><span style="height: 45%;"></span>
-                  <span style="height: 80%;"></span><span style="height: 65%;"></span><span style="height: 50%;"></span>
-                </div>
-
-                <!-- Running Metrics Triad -->
-                <div class="h-stats-triad">
-                  <div class="h-stat-col">
-                    <span class="h-stat-lbl">10-Min LAeq</span>
-                    <span class="h-stat-val" id="heroLiveLaeq">56.8 <small>dBA</small></span>
-                  </div>
-                  <div class="h-stat-col">
-                    <span class="h-stat-lbl">Peak Spike</span>
-                    <span class="h-stat-val val-amber" id="heroLivePeak">64.2 <small>dBA</small></span>
-                  </div>
-                  <div class="h-stat-col">
-                    <span class="h-stat-lbl">Energy Cut</span>
-                    <span class="h-stat-val val-mint">-7.2 <small>dB</small></span>
-                  </div>
-                </div>
-
-                <!-- Security Verification Bar -->
-                <div class="h-sec-bar">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#05ffa1" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                  <span>Hardware Protected • Volatile RAM Only • 0 Bytes Recorded</span>
-                </div>
-
-                <!-- Direct App Launch Actions -->
-                <div class="h-phone-actions">
-                  <a href="app.html" class="btn-ctrl btn-start" style="padding: 12px; font-size: 0.88rem; width: 100%; text-decoration: none;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                    <span>Launch Live Web App</span>
-                  </a>
-                  <a href="QuietCampus.apk" download="QuietCampus.apk" class="btn-ctrl btn-pause" style="padding: 10px; font-size: 0.82rem; width: 100%; text-decoration: none;">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                    <span>Download Android .APK</span>
-                  </a>
-                </div>
-
+              <!-- Sleek Top Bezel with Speaker & Front Sensor -->
+              <div class="hero-phone-top-bezel">
+                <div class="hero-phone-speaker"></div>
+                <div class="hero-phone-camera"></div>
               </div>
+              
+              <!-- Live Embedded App Viewport -->
+              <div class="hero-iframe-container">
+                <iframe src="app.html" class="hero-app-live-iframe" allow="microphone; accelerometer; autoplay" title="QuietCampus Live App"></iframe>
+              </div>
+
+              <!-- Quick Launch Footer Bar -->
+              <div class="hero-iframe-footer-bar">
+                <a href="app.html" class="btn-fullscreen-app" title="Open App in Fullscreen">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  <span>Open Fullscreen App</span>
+                </a>
+                <a href="QuietCampus.apk" download="QuietCampus.apk" class="btn-apk-pill" title="Download Android APK">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                  <span>.APK</span>
+                </a>
+              </div>
+
             </div>
           </div>
 
